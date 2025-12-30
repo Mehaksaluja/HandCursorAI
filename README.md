@@ -10,8 +10,9 @@ A hybrid human-computer interaction system that allows you to control your lapto
 - **Accessibility-Friendly**: Visual feedback and smooth cursor movements
 - **Multiple Gestures**: 
   - Pointing gesture for cursor movement
-  - Pinch gesture for clicking
-  - Fist gesture for dragging
+  - Pinch gesture for left click
+  - Two fingers extended for right click
+  - Full hand open for scrolling
 
 ## Installation
 
@@ -60,21 +61,35 @@ python hand_cursor.py
 
 - **Space Bar**: Toggle gesture control on/off
 - **Q**: Quit the application
+
+### Gestures
+
 - **Pointing Gesture**: Move cursor (index finger extended, other fingers closed)
+  - Cursor follows index finger position directly
+  - Move hand to move cursor on screen
+  
 - **Pinch Gesture**: Left click (thumb and index finger touching)
-- **Fist**: Right click (all fingers closed)
+  - Immediate click when pinch is detected
+  
+- **Two Fingers Extended**: Right click (index and middle fingers both extended)
+  - Other fingers should be closed
+  
+- **Full Hand Open**: Scroll (all fingers extended)
+  - Move hand up to scroll up
+  - Move hand down to scroll down
 
 ### How It Works
 
 1. The system captures video from your default webcam
 2. MediaPipe detects hand landmarks in real-time
 3. Gestures are interpreted and converted to cursor movements/clicks
-4. When gesture control is enabled, movements are relative to a calibration point
-5. Traditional mouse/trackpad input continues to work normally
+4. Cursor movement uses absolute positioning - follows index finger position directly
+5. Traditional mouse/trackpad input continues to work normally (hybrid system)
 
 ## Technical Details
 
 - Uses MediaPipe Hands for robust hand landmark detection
 - Implements smoothing algorithms to reduce cursor jitter
-- Calibration system for personalized control zones
-- Configurable sensitivity and movement scaling
+- Absolute positioning for cursor movement (finger position maps directly to screen)
+- Configurable sensitivity and movement scaling via config.py
+- Real-time gesture recognition with priority system (scroll > click > move)
